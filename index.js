@@ -55,10 +55,12 @@ async function run() {
             res.json(result);
         })
 
-        //UPDATE USER
+        //UPDATE SERVICE
         app.put('/tourism/:id', async (req, res) => {
             const id = req.params.id;
+            console.log(id);
             const updatedService = req.body;
+            console.log(updatedService);
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true };
             const updatedDoc = {
@@ -79,6 +81,14 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await tourismCollection.deleteOne(query);
+            res.json(result);
+        })
+
+        //ORDER API
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            console.log('order', order);
+            const result = await orderCollection.insertOne(order);
             res.json(result);
         })
 
