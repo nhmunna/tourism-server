@@ -22,8 +22,15 @@ async function run() {
         await client.connect();
         console.log('database connected successfully');
         const database = client.db('online_tourism');
-        const productCollection = database.collection('tourism');
+        const tourismCollection = database.collection('tourism');
         const orderCollection = database.collection('orders');
+
+        //GET TOURISM API
+        app.get('/tourism', async (req, res) => {
+            const cursor = tourismCollection.find({});
+            const tourism = await cursor.toArray();
+            res.send(tourism);
+        })
     }
     finally {
         // await client.close();
