@@ -40,8 +40,8 @@ async function run() {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };
-            const service = await servicesCollection.findOne(query);
-            res.json(service);
+            const tourism = await tourismCollection.findOne(query);
+            res.json(tourism);
         })
     }
     finally {
