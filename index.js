@@ -43,6 +43,26 @@ async function run() {
             const tourism = await tourismCollection.findOne(query);
             res.json(tourism);
         })
+
+
+        //POST API
+        app.post('/tourism', async (req, res) => {
+            const service = req.body;
+            console.log('hitting api', service);
+
+            const result = await tourismCollection.insertOne(service);
+            console.log(result);
+            res.json(result);
+        })
+
+        //DELETE API
+        app.delete('/tourism/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await tourismCollection.deleteOne(query);
+            res.json(result);
+        })
+
     }
     finally {
         // await client.close();
