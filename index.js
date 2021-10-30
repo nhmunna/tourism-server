@@ -55,6 +55,25 @@ async function run() {
             res.json(result);
         })
 
+        //UPDATE USER
+        app.put('/tourism/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedService = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    name: updatedService.name,
+                    img: updatedService.img,
+                    text: updatedService.text,
+                    price: updatedService.price
+                },
+            };
+            const result = await tourismCollection.updateOne(filter, updatedDoc, options)
+            console.log('updating user', id);
+            res.json(result);
+        })
+
         //DELETE API
         app.delete('/tourism/:id', async (req, res) => {
             const id = req.params.id;
